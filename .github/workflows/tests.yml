@@ -1,0 +1,56 @@
+name: Run Selenium Pytest Tests
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Setup Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      # Install Google Chrome
+      - name: Install Google Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      # Install ChromeDriver
+      - name: Install ChromeDriver
+        uses: nanasess/setup-chromedriver@v2
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Run Pytest
+      - name: Run Tests
+        run: |
+          mkdir -p screenshots
+          pytest -v --disable-warnings --maxfail=1 --capture=tee-sys
+      
+
+      # Upload screenshots on test failure
+      - name: Upload Screenshots
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: failure-screenshots
+          path: screenshots/
+          if-no-files-found: ignore
