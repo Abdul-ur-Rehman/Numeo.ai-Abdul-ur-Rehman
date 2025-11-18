@@ -12,7 +12,7 @@ class CartPage:
         self.continue_shopping = (By.ID, "continue-shopping")
 
     def get_cart_items_texts(self):
-        self.wait.until(EC.visibility_of_all_elements_located(self.cart_items))
+        self.wait.until(EC.presence_of_all_elements_located(self.cart_items))
         elements = self.driver.find_elements(*self.cart_items)
         return [e.text for e in elements]
 

@@ -28,4 +28,4 @@ class LoginPage:
         return self.wait.until(EC.visibility_of_element_located(self.error_msg)).text
 
     def is_login_page_visible(self):
-        return self.wait.until(EC.visibility_of_element_located(self.login_button))
+        return self.wait.until(EC.element_to_be_clickable(self.login_button))
