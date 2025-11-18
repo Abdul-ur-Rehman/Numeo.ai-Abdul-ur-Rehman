@@ -11,7 +11,7 @@ class TestLogin:
 
     def test_valid_login(self, driver):
         """
-        Test login with valid credentials.
+        Verify user can log in with correct credentials (`standard_user`, `secret_sauce`).
         """
         login = LoginPage(driver)
         inventory = InventoryPage(driver)
@@ -23,7 +23,7 @@ class TestLogin:
 
     def test_invalid_login(self, driver):
         """
-        Test login with invalid credentials.
+        Verify proper error message is displayed when using wrong username/password.
         """
         login = LoginPage(driver)
         login.load()
@@ -35,7 +35,7 @@ class TestLogin:
 
     def test_empty_username(self, driver):
         """
-        Test login with empty username.
+        Verify proper error message when username field is left empty.
         """
         login = LoginPage(driver)
         login.load()
@@ -46,7 +46,7 @@ class TestLogin:
 
     def test_empty_password(self, driver):
         """
-        Test login with empty password.
+        Verify proper error message when password field is left empty.
         """
         login = LoginPage(driver)
         login.load()
@@ -57,7 +57,7 @@ class TestLogin:
 
     def test_logout(self, driver):
         """
-        Test user can log out successfully.
+        Verify user can log out successfully from the inventory page.
         """
         login = LoginPage(driver)
         inventory = InventoryPage(driver)
@@ -67,8 +67,7 @@ class TestLogin:
 
         assert inventory.is_logged_in(), "Login failed"
 
-        # Perform logout
+
         inventory.logout()
 
-        # Verify login page is displayed again
         assert login.is_login_page_visible(), "Logout failed; login page not visible"
