@@ -1,6 +1,9 @@
+import pytest
+
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 
+@pytest.mark.cart
 def test_add_item_to_cart(driver):
     login = LoginPage(driver)
     inv = InventoryPage(driver)

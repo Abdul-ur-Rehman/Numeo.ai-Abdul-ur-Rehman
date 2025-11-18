@@ -1,8 +1,11 @@
+import pytest
+
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
 
+@pytest.mark.checkout
 def test_end_to_end_checkout(driver):
     # Login
     login = LoginPage(driver)
