@@ -3,9 +3,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class CheckoutPage:
-    def __init__(self, driver, timeout=20):
+    def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(driver, timeout)
+        self.wait = WebDriverWait(driver, 10)
 
         # Step 1 - Your Info
         self.first_name = (By.ID, "first-name")

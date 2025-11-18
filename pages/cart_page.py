@@ -3,16 +3,16 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class CartPage:
-    def __init__(self, driver, timeout=10):
+    def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(driver, timeout)
+        self.wait = WebDriverWait(driver, 10)
 
         self.cart_items = (By.CLASS_NAME, "cart_item")
         self.checkout_btn = (By.ID, "checkout")   # using ID instead of CSS
         self.continue_shopping = (By.ID, "continue-shopping")
 
     def get_cart_items_texts(self):
-        self.wait.until(EC.presence_of_all_elements_located(self.cart_items))
+        self.wait.until(EC.visibility_of_all_elements_located(self.cart_items))
         elements = self.driver.find_elements(*self.cart_items)
         return [e.text for e in elements]
 
