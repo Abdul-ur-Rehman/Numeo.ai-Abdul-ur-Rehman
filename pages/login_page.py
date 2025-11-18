@@ -25,9 +25,7 @@ class LoginPage:
         self.driver.find_element(*self.login_button).click()
 
     def get_error_message(self):
-        """Returns the error message text if login fails"""
         return self.wait.until(EC.visibility_of_element_located(self.error_msg)).text
 
     def is_login_page_visible(self):
-        """Checks if login page is currently visible"""
         return self.wait.until(EC.visibility_of_element_located(self.login_button))
