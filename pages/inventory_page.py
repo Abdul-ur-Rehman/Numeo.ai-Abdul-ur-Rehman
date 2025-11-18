@@ -8,6 +8,7 @@ class InventoryPage:
 
     def __init__(self, driver):
         self.driver = driver
+        self.wait = WebDriverWait(driver, 20)
 
     def is_logged_in(self):
         return "inventory" in self.driver.current_url
