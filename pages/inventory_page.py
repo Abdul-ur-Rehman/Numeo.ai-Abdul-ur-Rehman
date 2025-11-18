@@ -8,9 +8,10 @@ class InventoryPage:
         self.wait = WebDriverWait(driver, timeout)
 
         self.inventory_list = (By.CLASS_NAME, "inventory_list")
-        # Simple ID-based locator instead of complex XPath
         self.backpack_add_btn = (By.ID, "add-to-cart-sauce-labs-backpack")
         self.cart_icon = (By.ID, "shopping_cart_container")
+        self.burger_menu = (By.ID, "react-burger-menu-btn")
+        self.logout_link = (By.ID, "logout_sidebar_link")
 
     def is_logged_in(self):
         return self.wait.until(EC.visibility_of_element_located(self.inventory_list))
@@ -20,3 +21,8 @@ class InventoryPage:
 
     def open_cart(self):
         self.wait.until(EC.element_to_be_clickable(self.cart_icon)).click()
+
+    def logout(self):
+        """Logs out the current user"""
+        self.wait.until(EC.element_to_be_clickable(self.burger_menu)).click()
+        self.wait.until(EC.element_to_be_clickable(self.logout_link)).click()

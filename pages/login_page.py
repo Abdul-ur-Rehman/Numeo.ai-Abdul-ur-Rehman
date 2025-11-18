@@ -3,20 +3,31 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class LoginPage:
-    URL = "https://www.saucedemo.com/"
-
     def __init__(self, driver, timeout=10):
         self.driver = driver
         self.wait = WebDriverWait(driver, timeout)
+        self.url = "https://www.saucedemo.com/"
 
-        self.username = (By.ID, "user-name")
-        self.password = (By.ID, "password")
-        self.login_btn = (By.ID, "login-button")
+        # Locators
+        self.username_input = (By.ID, "user-name")
+        self.password_input = (By.ID, "password")
+        self.login_button = (By.ID, "login-button")
+        self.error_msg = (By.XPATH, "//h3[@data-test='error']")
 
     def load(self):
-        self.driver.get(self.URL)
+        self.driver.get(self.url)
 
-    def login(self, user, pwd):
-        self.wait.until(EC.visibility_of_element_located(self.username)).send_keys(user)
-        self.driver.find_element(*self.password).send_keys(pwd)
-        self.driver.find_element(*self.login_btn).click()
+    def login(self, username, password):
+        self.wait.until(EC.visibility_of_element_located(self.username_input)).clear()
+        self.driver.find_element(*self.username_input).send_keys(username)
+        self.driver.find_element(*self.password_input).clear()
+        self.driver.find_element(*self.password_input).send_keys(password)
+        self.driver.find_element(*self.login_button).click()
+
+    def get_error_message(self):
+        """Returns the error message text if login fails"""
+        return self.wait.until(EC.visibility_of_element_located(self.error_msg)).text
+
+    def is_login_page_visible(self):
+        """Checks if login page is currently visible"""
+        return self.wait.until(EC.visibility_of_element_located(self.login_button))
