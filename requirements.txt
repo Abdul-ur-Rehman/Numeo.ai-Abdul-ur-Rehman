@@ -1,0 +1,4 @@
+selenium==4.22.0
+pytest
+pytest-html
+webdriver-manager
